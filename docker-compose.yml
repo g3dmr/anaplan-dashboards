@@ -22,3 +22,17 @@ services:
     ports:
       - 82:82
       - 443:443
+
+  dashboards:
+    image: dashboards:latest
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysql-db:3306/definitions
+      - spring.datasource.username=root
+      - spring.datasource.password=test123
+    depends_on:
+      - mysql-db
+    restart: on-failure
